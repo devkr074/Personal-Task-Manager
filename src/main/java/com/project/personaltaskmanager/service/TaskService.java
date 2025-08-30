@@ -5,4 +5,6 @@ import com.project.personaltaskmanager.model.Task;
 
 public interface TaskService {
     List<Task> getAllTasks();
+
+    Task createTask(Task task);
 }

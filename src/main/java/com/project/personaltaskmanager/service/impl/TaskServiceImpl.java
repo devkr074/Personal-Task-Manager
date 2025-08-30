@@ -10,7 +10,7 @@ import com.project.personaltaskmanager.repository.TaskRepository;
 import com.project.personaltaskmanager.service.TaskService;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class TaskServiceImpl implements TaskService {
     private static final Logger log = LoggerFactory.getLogger(TaskServiceImpl.class);
     private final TaskRepository repository;
@@ -20,8 +20,15 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Task> getAllTasks() {
         log.debug("Fetching all tasks");
         return repository.findAll();
+    }
+
+    @Override
+    public Task createTask(Task task) {
+        log.debug("Creating new task: {}", task.getTitle());
+        return repository.save(task);
     }
 }

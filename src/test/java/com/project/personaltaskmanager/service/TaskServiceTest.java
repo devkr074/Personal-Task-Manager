@@ -29,4 +29,14 @@ public class TaskServiceTest {
         assertThat(tasks).hasSize(2);
         verify(repository, times(1)).findAll();
     }
+
+    @Test
+    void createTask_savesEntity() {
+        Task t = new Task();
+        t.setTitle("A");
+        when(repository.save(t)).thenReturn(t);
+        Task saved = service.createTask(t);
+        assertThat(saved).isSameAs(t);
+        verify(repository).save(t);
+    }
 }
