@@ -1,34 +1,54 @@
 package com.project.personaltaskmanager.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.stream.Collectors;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import com.project.personaltaskmanager.model.Task;
+import com.project.personaltaskmanager.dto.TaskDTO;
+import com.project.personaltaskmanager.entity.Task;
 import com.project.personaltaskmanager.repository.TaskRepository;
 import com.project.personaltaskmanager.service.TaskService;
 
 @Service
-@Transactional
 public class TaskServiceImpl implements TaskService {
-    private static final Logger log = LoggerFactory.getLogger(TaskServiceImpl.class);
     private final TaskRepository repository;
+    private final ModelMapper mapper;
 
-    public TaskServiceImpl(TaskRepository repository) {
+    public TaskServiceImpl(TaskRepository repository, ModelMapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<Task> getAllTasks() {
-        log.debug("Fetching all tasks");
-        return repository.findAll();
+    public List<TaskDTO> findAll() {
+        return repository.findAll().stream().map(task -> mapper.map(task, TaskDTO.class)).collect(Collectors.toList());
     }
 
     @Override
-    public Task createTask(Task task) {
-        log.debug("Creating new task: {}", task.getTitle());
-        return repository.save(task);
+    public TaskDTO findById(Long id) {
+        Task task = repository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
+        return mapper.map(task, TaskDTO.class);
+    }
+
+    @Override
+    public TaskDTO create(TaskDTO dto) {
+        Task task = mapper.map(dto, Task.class);
+        task.setCreatedAt(LocalDateTime.now());
+        Task saved = repository.save(task);
+        return mapper.map(saved, TaskDTO.class);
+    }
+
+    @Override
+    public TaskDTO update(Long id, TaskDTO dto) {
+        Task existing = repository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
+        mapper.map(dto, existing);
+        Task updated = repository.save(existing);
+        return mapper.map(updated, TaskDTO.class);
+    }
+
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 }

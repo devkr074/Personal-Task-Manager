@@ -1,10 +1,16 @@
 package com.project.personaltaskmanager.service;
 
 import java.util.List;
-import com.project.personaltaskmanager.model.Task;
+import com.project.personaltaskmanager.dto.TaskDTO;
 
 public interface TaskService {
-    List<Task> getAllTasks();
+    List<TaskDTO> findAll();
 
-    Task createTask(Task task);
+    TaskDTO findById(Long id);
+
+    TaskDTO create(TaskDTO taskDTO);
+
+    TaskDTO update(Long id, TaskDTO taskDTO);
+
+    void delete(Long id);
 }
