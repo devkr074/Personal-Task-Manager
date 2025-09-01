@@ -1,2 +1,0 @@
-INSERT INTO tasks (title, description, priority, category, created_at, completed)
-VALUES ("Buy groceries", "Milk, bread, eggs", "MEDIUM", "Personal", CURRENT_TIMESTAMP, false), ("Finish report", "Complete the quarterly report", "HIGH", "Work", CURRENT_TIMESTAMP, false);
