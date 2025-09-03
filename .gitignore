@@ -31,3 +31,14 @@ build/
 
 ### VS Code ###
 .vscode/
+
+/target/
+/*.log
+/.idea/
+/*.iml
+/.classpath
+/.project
+/.settings/
+/.vscode/
+/.h2.db
+
