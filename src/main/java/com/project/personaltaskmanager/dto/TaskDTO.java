@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
+import com.project.personaltaskmanager.model.Task;
+
 /**
  * TaskDTO carries task data between layers,
  * enforcing validation rules.
@@ -30,6 +32,16 @@ public class TaskDTO {
     private Long priorityId;
 
     private boolean completed = false;
+public TaskDTO() {
+}
+public TaskDTO(Task task) {
+    this.id         = task.getId();
+    this.title      = task.getTitle();
+    this.categoryId = task.getCategory().getId();
+    this.priorityId = task.getPriority().getId();
+    this.dueDate    = task.getDueDate();
+    this.completed  = task.isCompleted();
+  }
 
     public Long getId() {
         return id;
