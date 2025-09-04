@@ -17,7 +17,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private int category_id;
+    private Long category_id;
     @Column(nullable = false, length = 100)
     private String title;
     @Column(length = 500)
@@ -36,11 +36,11 @@ public class Task {
         this.id = id;
     }
 
-    public int getCategory_id() {
+    public Long getCategory_id() {
         return category_id;
     }
 
-    public void setCategory_id(int category_id) {
+    public void setCategory_id(Long category_id) {
         this.category_id = category_id;
     }
 
