@@ -1,15 +1,10 @@
-package com.project.personaltaskmanager.entity;
+package com.project.personaltaskmanager.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 
-public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CategoryDto {
     private Long category_id;
-    @Column(nullable = false, length = 100)
+    @NotNull(message = "Category name is required")
     private String category_name;
 
     public Long getCategory_id() {
