@@ -1,25 +1,27 @@
 package com.project.personaltaskmanager.dto;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class CategoryDto {
-    private Long category_id;
-    @NotNull(message = "Category name is required")
-    private String category_name;
+    private Long id;
+    @NotBlank(message = "Category name is required")
+    @Size(min = 2, max = 50, message = "Category name must be between 2 and 50 characters")
+    private String name;
 
-    public Long getCategory_id() {
-        return category_id;
+    public Long getId() {
+        return id;
     }
 
-    public void setCategory_id(Long category_id) {
-        this.category_id = category_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getCategory_name() {
-        return category_name;
+    public String getName() {
+        return name;
     }
 
-    public void setCategory_name(String category_name) {
-        this.category_name = category_name;
+    public void setName(String name) {
+        this.name = name;
     }
 }

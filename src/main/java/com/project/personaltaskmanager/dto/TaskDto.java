@@ -1,25 +1,24 @@
 package com.project.personaltaskmanager.dto;
 
-import java.time.LocalDate;
-import com.project.personaltaskmanager.entity.Priority;
-import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import java.time.LocalDate;
 
 public class TaskDto {
     private Long id;
-    @NotNull(message = "Category is required")
-    private Long category_id;
-    @NotNull(message = "Title is required")
-    @Size(max = 100, message = "Title cannot exceed 100 characters")
+    @NotBlank(message = "Title is required")
+    @Size(min = 3, max = 100, message = "Title must be between 3 and 100 characters")
     private String title;
-    @Size(max = 100, message = "Description cannot exceed 100 characters")
     private String description;
+    @NotNull(message = "Category is required")
+    private Long categoryId;
     @NotNull(message = "Priority is required")
-    private Priority priority;
-    @FutureOrPresent(message = "Due date must be today or in the future")
-    private LocalDate duDate;
-    private boolean completed;
+    private String priority;
+    @NotNull(message = "Due date is required")
+    private LocalDate dueDate;
+    @NotNull(message = "Status is required")
+    private String status;
 
     public Long getId() {
         return id;
@@ -27,14 +26,6 @@ public class TaskDto {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getCategory_id() {
-        return category_id;
-    }
-
-    public void setCategory_id(Long category_id) {
-        this.category_id = category_id;
     }
 
     public String getTitle() {
@@ -53,23 +44,35 @@ public class TaskDto {
         this.description = description;
     }
 
-    public Priority getPriority() {
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getPriority() {
         return priority;
     }
 
-    public void setPriority(Priority priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 
-    public LocalDate getDuDate() {
-        return duDate;
+    public LocalDate getDueDate() {
+        return dueDate;
     }
 
-    public void setDuDate(LocalDate duDate) {
-        this.duDate = duDate;
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 
-    public boolean isCompleted() {
-        return completed;
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
